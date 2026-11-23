@@ -67,6 +67,84 @@ function editorial_html(string $html): string {
     }, $html);
 }
 
+function structured_data(array $page): array {
+    global $config, $catalog;
+    if ($page['view'] === '404' || http_response_code() === 404) {
+        return [];
+    }
+
+    $businessId = canonical('/#negocio');
+    $graph = [];
+    if (in_array($page['view'], ['inicio', 'contacto'], true)) {
+        $address = $config['address_parts'];
+        $graph[] = [
+            '@type' => 'LocalBusiness',
+            '@id' => $businessId,
+            'name' => $config['business_name'],
+            'url' => canonical('/'),
+            'telephone' => $config['phone_href'],
+            'email' => $config['email'],
+            'logo' => canonical($config['logo_path']),
+            'image' => canonical($config['social_image_path']),
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => $address['street'] . ', ' . $address['district'],
+                'addressLocality' => $address['municipality'],
+                'addressRegion' => $address['state'],
+                'addressCountry' => $address['country'],
+            ],
+        ];
+    }
+    if ($page['view'] === 'inicio') {
+        $graph[] = [
+            '@type' => 'WebSite',
+            '@id' => canonical('/#sitio'),
+            'url' => canonical('/'),
+            'name' => $config['business_name'],
+            'publisher' => ['@id' => $businessId],
+        ];
+    }
+    if ($page['view'] === 'servicio') {
+        $service = $catalog['services'][$page['slug']];
+        $graph[] = [
+            '@type' => 'Service',
+            '@id' => canonical($service['path']) . '#servicio',
+            'name' => $service['heading'],
+            'description' => $service['description'],
+            'url' => canonical($service['path']),
+            'provider' => ['@id' => $businessId],
+            // Published coverage is Querétaro; do not infer a national service area.
+            'areaServed' => $config['address_parts']['state'],
+        ];
+    }
+
+    $labels = ['servicios' => 'Servicios', 'trabajos' => 'Trabajos', 'contacto' => 'Contacto'];
+    if (isset($labels[$page['view']]) || $page['view'] === 'servicio') {
+        $items = [['@type' => 'ListItem', 'position' => 1, 'name' => 'Inicio', 'item' => canonical('/')]];
+        if ($page['view'] === 'servicio') {
+            $items[] = ['@type' => 'ListItem', 'position' => 2, 'name' => 'Servicios', 'item' => canonical('/servicios')];
+        }
+        $items[] = [
+            '@type' => 'ListItem',
+            'position' => count($items) + 1,
+            'name' => $page['view'] === 'servicio' ? $service['name'] : $labels[$page['view']],
+            'item' => canonical($page['path']),
+        ];
+        $graph[] = ['@type' => 'BreadcrumbList', '@id' => canonical($page['path']) . '#breadcrumbs', 'itemListElement' => $items];
+    }
+    return $graph === [] ? [] : ['@context' => 'https://schema.org', '@graph' => $graph];
+}
+
+function render_structured_data(array $page): void {
+    $data = structured_data($page);
+    if ($data === []) {
+        return;
+    }
+    $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+        | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
+    echo '<script type="application/ld+json">' . $json . '</script>' . "\n";
+}
+
 function render_head(array $page): void {
 ?>
 <!DOCTYPE html>
@@ -78,25 +156,26 @@ function render_head(array $page): void {
 <meta name="description" content="<?= e($page['description']) ?>">
 <meta name="theme-color" content="#24221F">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Arquitectos Trabajando C+S Estudio">
+<meta property="og:site_name" content="<?= e(site_value('business_name')) ?>">
 <meta property="og:locale" content="es_MX">
 <meta property="og:title" content="<?= e($page['title']) ?>">
 <meta property="og:description" content="<?= e($page['description']) ?>">
 <meta property="og:url" content="<?= e(canonical($page['path'])) ?>">
-<meta property="og:image" content="<?= e(canonical('/assets/logo-og.jpg')) ?>">
+<meta property="og:image" content="<?= e(canonical(site_value('social_image_path'))) ?>">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="630">
 <meta property="og:image:height" content="633">
-<meta property="og:image:alt" content="Logotipo de Arquitectos Trabajando C+S Estudio">
+<meta property="og:image:alt" content="Logotipo de <?= e(site_value('business_name')) ?>">
 <link rel="canonical" href="<?= e(canonical($page['path'])) ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="<?= e(url('/assets/site.css')) ?>">
 <link rel="icon" type="image/vnd.microsoft.icon" href="<?= e(url('/favicon.ico')) ?>">
-<link rel="image_src" href="<?= e(canonical('/assets/logo-og.jpg')) ?>">
+<link rel="image_src" href="<?= e(canonical(site_value('social_image_path'))) ?>">
 <?php if ($page['section'] === 'trabajos'): ?><script src="<?= e(url('/assets/site.js')) ?>" defer></script><?php endif; ?>
 <?php if (http_response_code() === 404): ?><meta name="robots" content="noindex"><?php endif; ?>
+<?php render_structured_data($page); ?>
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -109,8 +188,8 @@ function render_header(array $page): void {
 ?>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="<?= e(url('/')) ?>" aria-label="Arquitectos Trabajando C+S Estudio — Inicio">
-      <img src="<?= e(url('/assets/logo-at.png')) ?>" alt="Arquitectos Trabajando C+S Estudio" width="230" height="42">
+    <a class="brand" href="<?= e(url('/')) ?>" aria-label="<?= e(site_value('business_name')) ?> — Inicio">
+      <img src="<?= e(url(site_value('logo_path'))) ?>" alt="<?= e(site_value('business_name')) ?>" width="230" height="42">
     </a>
     <nav class="nav" aria-label="Navegación principal">
       <a href="<?= e(url('/')) ?>"<?= nav_current('inicio', $page) ?>>Inicio</a>
@@ -129,7 +208,7 @@ function render_footer(array $page): void {
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <img src="<?= e(url('/assets/logo-at.png')) ?>" alt="Arquitectos Trabajando C+S Estudio" width="240" height="44">
+        <img src="<?= e(url(site_value('logo_path'))) ?>" alt="<?= e(site_value('business_name')) ?>" width="240" height="44">
         <p>Arquitectura, peritajes, valuación y restauración en Querétaro. DRO, proyecto arquitectónico y ejecución de obra.</p>
       </div>
       <div class="footer-col">
@@ -158,7 +237,7 @@ function render_footer(array $page): void {
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Arquitectos Trabajando C+S Estudio</span>
+      <span>© 2026 <?= e(site_value('business_name')) ?></span>
       <span>Querétaro, México · <a href="//efra.biz" rel="noopener">Desarrollado por Efra</a></span>
     </div>
   </div>

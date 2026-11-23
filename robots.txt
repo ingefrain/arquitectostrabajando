@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arquitectostrabajando.com.mx/sitemap.xml

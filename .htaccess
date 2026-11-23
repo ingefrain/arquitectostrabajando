@@ -15,6 +15,8 @@ RewriteRule ^[^/]+\.(?:php|html)/?$ index.php [END]
 
 # Only existing public assets bypass the router.
 RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^robots\.txt$ - [END,T=text/plain]
+RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^favicon\.ico$ - [END]
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^assets/.+\.(?:css|js|png|jpe?g|gif|svg|webp|ico|woff2?)$ - [END,NC]
