@@ -1,0 +1,21 @@
+Options -Indexes -MultiViews
+DirectoryIndex index.php
+AcceptPathInfo On
+RewriteEngine On
+
+# Implementation, documentation and repository files are never public endpoints.
+RewriteRule (^|/)\. - [F,END]
+RewriteRule ^(?:vistas|datos|xtras)(?:/|$) - [F,END,NC]
+RewriteRule ^(?:config|rutas|includes|servicios-info)\.php(?:/|$) - [F,END,NC]
+
+# Route legacy URLs even while their old files exist during migration.
+# Sitemap must be resolved before the generic PHP rule.
+RewriteRule ^sitemap\.(?:xml|php)/?$ sitemap.php [END]
+RewriteRule ^[^/]+\.(?:php|html)/?$ index.php [END]
+
+# Only existing public assets bypass the router.
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^favicon\.ico$ - [END]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^assets/.+\.(?:css|js|png|jpe?g|gif|svg|webp|ico|woff2?)$ - [END,NC]
+RewriteRule ^ index.php [END]

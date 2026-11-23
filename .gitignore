@@ -31,3 +31,8 @@ Desktop.ini
 # Editor
 .vscode/
 .idea/
+
+# Evidencias y perfiles temporales de verificación local
+/xtras/backups/
+/xtras/qa-capturas/
+/xtras/qa-edge-*/
