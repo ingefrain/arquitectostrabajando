@@ -1,0 +1,33 @@
+# Configuración sensible
+includes/cfg.php
+api/config.local.php
+.env
+
+# Archivos subidos / contenido dinámico
+**/img/contenido/
+
+#librerías de terceros
+library/
+
+# Logs y temporales
+*.log
+error_log
+tmp/
+cache/
+
+#Archivos de respaldo anteriores
+**/old/
+**/back/
+**/test/
+**/tests/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
