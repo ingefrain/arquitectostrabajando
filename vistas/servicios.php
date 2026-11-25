@@ -7,8 +7,8 @@
     <div class="home-hero">
       <div>
         <p class="eyebrow">Querétaro, México · Servicios</p>
-        <h1>Servicios de arquitectura, peritaje y construcción</h1>
-        <p class="lead">DRO y peritajes, proyecto arquitectónico y ejecución de obra, además de presupuestos, planos y levantamientos topográficos.</p>
+        <h1>Servicios de arquitectura, peritaje y restauración</h1>
+        <p class="lead">DRO y peritajes, proyecto arquitectónico, restauración de escultura, pintura, murales y retablos, además de presupuestos, planos y levantamientos topográficos.</p>
       </div>
       <div class="actions">
         <a class="btn btn-primary" href="<?= e(contact_url()) ?>">Solicitar información

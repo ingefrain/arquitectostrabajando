@@ -22,7 +22,14 @@ if ($page !== null && $relative !== $destination) {
     header('Location: ' . url($destination) . ($query !== '' ? '?' . $query : ''), true, 301);
     exit;
 }
-if ($page === null) {
+if ($validPath && in_array($normalized, $routing['retired'], true)) {
+    http_response_code(410);
+    $page = [
+        'view' => '410', 'section' => '', 'path' => $normalized,
+        'title' => 'Contenido retirado | Arquitectos Trabajando C+S Estudio',
+        'description' => 'Esta página fue retirada del catálogo. Consulta los servicios actuales de Arquitectos Trabajando.',
+    ];
+} elseif ($page === null) {
     http_response_code(404);
     $page = [
         'view' => '404', 'section' => '', 'path' => $normalized,

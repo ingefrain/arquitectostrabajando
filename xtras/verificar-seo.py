@@ -140,6 +140,16 @@ for path in ('/no-existe', '/servicios/no-existe', '/assets/inexistente.png'):
     status, _, body = get(path)
     assert status == 404 and not Page(body.decode('utf-8')).blocks, path
 
+for path in routing.get('retired', []):
+    assert path not in routing['routes'] and path not in routing['legacy']
+    for suffix in ('', '/', '?utm_source=seo'):
+        status, headers, body = get(path + suffix)
+        html = body.decode('utf-8')
+        assert status == 410 and 'Location' not in headers, path
+        assert not Page(html).blocks and '<meta name="robots" content="noindex">' in html, path
+        assert 'Ver servicios actuales' in html
+    assert get(path, method='HEAD')[0] == 410
+
 status, headers, robots = get('/robots.txt')
 assert status == 200 and headers.get_content_type() == 'text/plain'
 assert robots == (ROOT / 'robots.txt').read_bytes()
@@ -170,4 +180,4 @@ if len(sys.argv) > 2:
         if name in ('config.php', 'includes.php', '.htaccess'): continue
         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest, name
     print('OK: previous HTML unchanged except JSON-LD; sitemap and out-of-scope source files unchanged.')
-print('OK: 23 pages; LocalBusiness 2, WebSite 1, Service 19, BreadcrumbList 22; schema fields, canonical URLs, navigation, 46 redirects, robots, sitemap, 404, Host independence and JSON escaping.')
+print(f'OK: {len(pages)} pages; LocalBusiness 2, WebSite 1, Service 19, BreadcrumbList 22; {len(routing["legacy"])*2} redirects; {len(routing.get("retired", []))} retired URLs (410); schema, navigation, robots, sitemap, 404, Host independence and JSON escaping.')

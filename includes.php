@@ -25,8 +25,10 @@ function render_home_card(array $card, array $catalog): void {
           <span class="cat-card__num"><?= e($category['number']) ?></span>
         </div>
         <div class="cat-card__body">
-          <h3 class="cat-card__title"><?= e($card['title']) ?></h3>
-          <p class="cat-card__desc"><?= e($category['description']) ?></p>
+          <div class="cat-card__heading">
+            <h3 class="cat-card__title"><?= e($card['title']) ?></h3>
+            <p class="cat-card__desc"><?= e($category['description']) ?></p>
+          </div>
           <ul class="cat-list">
             <?php render_service_rows($card['services'], $catalog); ?>
           </ul>
@@ -38,6 +40,7 @@ function render_catalog(array $catalog): void {
     foreach ($catalog['categories'] as $key => $category):
 ?>
     <section class="section" id="<?= e($key) ?>">
+      <?php if ($key === 'restauracion'): ?><span id="construccion" aria-hidden="true"></span><?php endif; ?>
       <div class="cat-index">
         <div class="cat-index__head">
           <p class="eyebrow"><?= e($category['number'] . ' · ' . $category['name']) ?></p>
@@ -60,8 +63,8 @@ function nav_current(string $section, array $page): string {
 // Only trusted, repository-owned editorial HTML reaches this function.
 function editorial_html(string $html): string {
     return preg_replace_callback('~(href|src)="([^"]*)"~', static function (array $m): string {
-        $path = str_starts_with($m[2], '/') && !str_starts_with($m[2], '//') ? $m[2] : null;
-        if ($path === null && str_starts_with($m[2], 'assets/')) $path = '/' . $m[2];
+        $path = strpos($m[2], '/') === 0 && strpos($m[2], '//') !== 0 ? $m[2] : null;
+        if ($path === null && strpos($m[2], 'assets/') === 0) $path = '/' . $m[2];
         if ($path === null) return $m[0];
         return $m[1] . '="' . e(url($path)) . '"';
     }, $html);
@@ -69,7 +72,7 @@ function editorial_html(string $html): string {
 
 function structured_data(array $page): array {
     global $config, $catalog;
-    if ($page['view'] === '404' || http_response_code() === 404) {
+    if (in_array($page['view'], ['404', '410'], true) || http_response_code() >= 400) {
         return [];
     }
 
@@ -174,7 +177,7 @@ function render_head(array $page): void {
 <link rel="icon" type="image/vnd.microsoft.icon" href="<?= e(url('/favicon.ico')) ?>">
 <link rel="image_src" href="<?= e(canonical(site_value('social_image_path'))) ?>">
 <?php if ($page['section'] === 'trabajos'): ?><script src="<?= e(url('/assets/site.js')) ?>" defer></script><?php endif; ?>
-<?php if (http_response_code() === 404): ?><meta name="robots" content="noindex"><?php endif; ?>
+<?php if (http_response_code() >= 400): ?><meta name="robots" content="noindex"><?php endif; ?>
 <?php render_structured_data($page); ?>
 </head>
 <body>
@@ -193,7 +196,6 @@ function render_header(array $page): void {
     </a>
     <nav class="nav" aria-label="Navegación principal">
       <a href="<?= e(url('/')) ?>"<?= nav_current('inicio', $page) ?>>Inicio</a>
-      <a href="<?= e(url('/servicios')) ?>"<?= nav_current('servicios', $page) ?>>Servicios</a>
       <a href="<?= e(url('/trabajos')) ?>"<?= nav_current('trabajos', $page) ?>>Trabajos</a>
       <a href="<?= e(url('/contacto')) ?>"<?= nav_current('contacto', $page) ?>>Contacto</a>
     </nav>
@@ -216,7 +218,7 @@ function render_footer(array $page): void {
         <ul>
         <li><a href="<?= e(url('/servicios#perito')) ?>">DRO / PERITO</a></li>
         <li><a href="<?= e(url('/servicios#proyecto')) ?>">Proyecto arquitectónico</a></li>
-        <li><a href="<?= e(url('/servicios#construccion')) ?>">Construcción</a></li>
+        <li><a href="<?= e(url('/servicios#restauracion')) ?>">Restauración</a></li>
         <li><a href="<?= e(url('/servicios#complementarios')) ?>">Servicios complementarios</a></li>
         </ul>
       </div>

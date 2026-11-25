@@ -15,8 +15,9 @@ $category = $catalog['categories'][$service['category']];
         <p class="eyebrow"><?= e($service['number'] . ' · ' . $category['name']) ?></p>
         <h1><?= e($service['heading']) ?></h1>
         <p class="lead"><?= e($category['description']) ?></p>
-        <figure class="detail__media">
+        <figure class="detail__media<?= isset($service['image_caption']) ? ' detail__media--reference' : '' ?>">
           <img src="<?= e(url('/' . $service['image'])) ?>" alt="<?= e($service['alt']) ?>" loading="lazy" decoding="async">
+          <?php if (isset($service['image_caption'])): ?><figcaption><?= e($service['image_caption']) ?></figcaption><?php endif; ?>
         </figure>
         <div class="detail__body">
           <?= editorial_html($service['body']) ?>

@@ -2,6 +2,18 @@
 
 Fecha: 23 de noviembre de 2026.
 
+### Actualización autorizada: 25 de noviembre de 2026
+
+La tercera categoría pasa de Construcción a **Restauración** y sustituye sus cuatro servicios por **Escultura, Pintura, Murales y Retablos**. No se trasladaron los servicios retirados a otra categoría. El sitio conserva cuatro categorías, 19 servicios activos y 23 páginas públicas indexables.
+
+Nuevas rutas: `/servicios/restauracion-escultura`, `/servicios/restauracion-pintura`, `/servicios/restauracion-murales` y `/servicios/restauracion-retablos`. Cada página tiene texto descriptivo provisional, título y descripción propios e ilustración SVG de referencia identificada como tal. La imagen de categoría sigue siendo `assets/img/cat-construccion.jpg`. Cuando se reciban materiales aprobados, actualizar `body`, `image`, `alt` e `image_caption` en el catálogo; retirar la leyenda provisional cuando corresponda.
+
+Las cuatro rutas limpias anteriores (`obra-nueva`, `construccion-remodelaciones`, `ampliaciones` y `murales-pintura-escultura`, bajo `/servicios/`) y sus cuatro URLs PHP históricas responden **410**, con una vista que permite consultar los servicios actuales. No redirigen a prestaciones diferentes, no publican JSON-LD y llevan `noindex`. No forman parte del catálogo, de las rutas públicas activas ni del sitemap. Se retiró el enlace editorial que apuntaba a construcción de remodelaciones. El ancla histórica `#construccion` queda como alias de ubicación para la nueva categoría del catálogo, sin crear una página indexable adicional.
+
+El respaldo previo completo y verificado está en `xtras/backups/antes-sustitucion-restauracion-20261125.zip`. `datos/servicios-20261125.php`, creado por el usuario, permanece intacto. El ZIP de la intervención anterior revertida también se conserva; solo se reutilizaron de él los textos e ilustraciones provisionales de los cuatro servicios nuevos, no la reorganización rechazada.
+
+Cambios en catálogo, rutas, controlador (410), funciones compartidas, vistas de servicios, estilos de ilustraciones y pruebas. Sitemap y robots mantienen sus generadores y configuración; el mapa incorpora automáticamente las cuatro rutas nuevas y excluye las retiradas. Validación local: 23 páginas activas, 19 Service, 22 BreadcrumbList, 38 redirecciones de rutas conservadas, 8 URLs retiradas con 410 (incluyendo variantes y HEAD), navegación, imágenes, anclas, sitemap, robots, ausencia de JSON-LD en errores, sintaxis PHP y `git diff --check`. No se realizó despliegue, commit ni push. Los hallazgos y planes de la auditoría inicial que siguen se conservan como historial; las páginas retiradas ya no son objetivos editoriales activos.
+
 ## Alcance y conclusión
 
 Se analizaron el código PHP, las 23 páginas renderizadas por Apache local, el catálogo de 19 servicios, metadatos, imágenes, navegación y reglas de reescritura. La estructura técnica permite rastrear las páginas; las mayores oportunidades están en contenido útil por servicio, evidencia de experiencia y descripción estructurada del negocio.

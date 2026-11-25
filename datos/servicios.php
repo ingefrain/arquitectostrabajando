@@ -16,11 +16,11 @@ return [
             'description' => 'Diseño y proyecto ejecutivo',
             'services' => ['estaciones-de-servicio', 'diseno-residencial', 'diseno-remodelaciones', 'diseno-comercial', 'centros-escolares', 'casas-ecologicas', 'diseno-industrial'],
         ],
-        'construccion' => [
+        'restauracion' => [
             'number' => '03',
-            'name' => 'Construcción',
-            'description' => 'Ejecución y supervisión de obra',
-            'services' => ['obra-nueva', 'construccion-remodelaciones', 'ampliaciones', 'murales-pintura-escultura'],
+            'name' => 'Restauración',
+            'description' => 'Conservación de escultura, pintura, murales y retablos',
+            'services' => ['restauracion-escultura', 'restauracion-pintura', 'restauracion-murales', 'restauracion-retablos'],
         ],
         'complementarios' => [
             'number' => '04',
@@ -156,8 +156,7 @@ return [
           <li>Planos y detalles de intervención según el alcance acordado.</li>
           <li>Planeación de etapas para organizar la ejecución de los trabajos.</li>
         </ul>
-        <p>Las intervenciones en muros, losas o elementos de carga requieren una revisión estructural antes de definir su ejecución. El diseño permite identificar estas necesidades desde el inicio.</p>
-        <p>Si ya cuentas con un proyecto y necesitas llevarlo a obra, consulta nuestro servicio de <a href="/servicios/construccion-remodelaciones">construcción de remodelaciones</a>.</p>',
+        <p>Las intervenciones en muros, losas o elementos de carga requieren una revisión estructural antes de definir su ejecución. El diseño permite identificar estas necesidades desde el inicio.</p>',
         ],
         'diseno-comercial' => [
             'legacy' => '4_Diseno-Arquitectonico-Comercial-Queretaro.php',
@@ -211,69 +210,69 @@ return [
             'alt' => 'Residencia de dos niveles con pórtico y ventanales',
             'body' => '<p>Nuestro compromiso es desarrollar un proyecto que cumpla con las especificaciones para el desarrollo de sus funciones comerciales o industriales, respetando en el desarrollo del proyecto el presupuesto autorizado. El proyecto se desarrollará de tal forma que resuelva aspectos de distribución, funcionalidad, diseño y normativa que le aplique.</p>',
         ],
-        'obra-nueva' => [
-            'legacy' => '11_Construccion-Obra-Nueva-Queretaro.php',
-            'path' => '/servicios/obra-nueva',
-            'category' => 'construccion',
+        'restauracion-escultura' => [
+            'path' => '/servicios/restauracion-escultura',
+            'category' => 'restauracion',
             'number' => '3.1',
-            'name' => 'Obra nueva',
-            'title' => 'Construcción de obra nueva en Querétaro | Arquitectos Trabajando C+S Estudio',
-            'description' => 'Construcción respetando el diseño arquitectónico autorizado, con programa de obra, materiales de primera, mano de obra calificada y normas de seguridad e higiene.',
-            'heading' => 'Construcción de Obra Nueva',
-            'image' => 'assets/img/cat-construccion.jpg',
-            'alt' => 'Estructura metálica de cubierta en obra',
-            'body' => '<p>Se construye respetando el diseño arquitectónico autorizado, apoyado de un programa de obra en el que se establecen los plazos de ejecución; se utilizan materiales de primera, mano de obra calificada, se respetan las normas de seguridad e higiene y se optimizan los costos.</p>',
+            'name' => 'Escultura',
+            'title' => 'Restauración de esculturas en Querétaro | Arquitectos Trabajando C+S Estudio',
+            'description' => 'Evaluación y planeación de la restauración de esculturas en Querétaro, considerando sus materiales, estado de conservación y condiciones de exhibición.',
+            'heading' => 'Restauración de esculturas en Querétaro',
+            'image' => 'assets/img/restauracion-escultura-referencia.svg',
+            'alt' => 'Ilustración de referencia de escultura; no representa una obra del estudio',
+            'image_caption' => 'Ilustración de referencia. Imagen definitiva pendiente.',
+            'body' => '<p>La restauración de esculturas comienza por reconocer los materiales, la técnica y el estado de cada pieza. El objetivo es conservar sus valores y atender los deterioros que comprometen su lectura o estabilidad, con una intervención definida a partir de su evaluación.</p>
+<h2>Evaluación de la pieza y su entorno</h2><p>Las esculturas en interiores y exteriores están expuestas a condiciones diferentes. La revisión considera el soporte, las superficies, las uniones y la presencia de alteraciones, además de la ubicación y las condiciones de exhibición.</p>
+<h2>Alcance del proyecto de restauración</h2><p>Antes de intervenir se documenta el estado de conservación y se establece qué trabajos son pertinentes. La limpieza, estabilización o reintegración se valoran según el material y las necesidades de la obra; no todas las piezas requieren los mismos tratamientos.</p>
+<p>Para consultar sobre restauración de escultura en Querétaro, comparte fotografías generales y de los daños, dimensiones, material conocido y ubicación. Esa información ayuda a preparar una valoración inicial y definir si se necesita una revisión presencial.</p>',
         ],
-        'construccion-remodelaciones' => [
-            'legacy' => '12_Construccion-Remodelaciones-Queretaro.php',
-            'path' => '/servicios/construccion-remodelaciones',
-            'category' => 'construccion',
+        'restauracion-pintura' => [
+            'path' => '/servicios/restauracion-pintura',
+            'category' => 'restauracion',
             'number' => '3.2',
-            'name' => 'Remodelaciones',
-            'title' => 'Remodelaciones en Querétaro | Arquitectos Trabajando C+S Estudio',
-            'description' => 'Asesoría para las modificaciones que se puedan realizar en oficina o vivienda, cuidando no afectar estructuralmente lo ya existente.',
-            'heading' => 'Remodelación de Obra',
-            'image' => 'assets/img/cat-construccion.jpg',
-            'alt' => 'Estructura metálica de cubierta en obra',
-            'body' => '<p>Si cuentas con un espacio para oficina o vivienda y no se adapta a tus requerimientos, te asesoramos para las modificaciones que se puedan realizar, cuidando no afectar estructuralmente lo ya existente.</p>',
+            'name' => 'Pintura',
+            'title' => 'Restauración de pintura en Querétaro | Arquitectos Trabajando C+S Estudio',
+            'description' => 'Restauración de pintura en Querétaro: revisión del soporte, superficie pictórica y condiciones de conservación para definir una intervención adecuada.',
+            'heading' => 'Restauración de pintura en Querétaro',
+            'image' => 'assets/img/restauracion-pintura-referencia.svg',
+            'alt' => 'Ilustración de referencia de pintura; no representa una obra del estudio',
+            'image_caption' => 'Ilustración de referencia. Imagen definitiva pendiente.',
+            'body' => '<p>La restauración de pintura busca conservar la obra y facilitar su apreciación respetando sus características. Cada cuadro requiere un estudio de su soporte, técnica, superficie y antecedentes antes de plantear cualquier intervención.</p>
+<h2>Revisión del soporte y la superficie pictórica</h2><p>En una pintura pueden presentarse deformaciones, desprendimientos, alteraciones de color o daños asociados al almacenamiento y la exposición. La evaluación permite distinguir los problemas visibles de aquellos que requieren un examen más detallado.</p>
+<h2>Un tratamiento acorde con cada obra</h2><p>El proyecto debe definir los objetivos, los trabajos propuestos y sus límites. Las decisiones sobre limpieza, consolidación o reintegración se toman después de revisar la pieza y documentar su estado, evitando soluciones generales para materiales distintos.</p>
+<p>Si necesitas orientación sobre restauración de pintura en Querétaro, envía fotografías del frente, reverso y zonas afectadas, medidas y datos conocidos de la técnica. Incluye información sobre reparaciones anteriores y el lugar donde se conserva la obra.</p>',
         ],
-        'ampliaciones' => [
-            'legacy' => '13_Construccion-Ampliaciones-Queretaro.php',
-            'path' => '/servicios/ampliaciones',
-            'category' => 'construccion',
+        'restauracion-murales' => [
+            'path' => '/servicios/restauracion-murales',
+            'category' => 'restauracion',
             'number' => '3.3',
-            'name' => 'Ampliaciones',
-            'title' => 'Ampliaciones de construcciones en Querétaro | Arquitectos Trabajando C+S Estudio',
-            'description' => 'Asesoría para ampliar tu casa, hacer un piso más o techar tu patio con la seguridad de no afectar estructuralmente lo ya existente.',
-            'heading' => 'Ampliación de Construcciones',
-            'image' => 'assets/img/cat-construccion.jpg',
-            'alt' => 'Estructura metálica de cubierta en obra',
-            'body' => '<p>¿Creció la familia, deseas hacer un piso más en tu casa o techar tu patio?</p>
-        <p>Nosotros te asesoramos para que tengas la seguridad de que las modificaciones se pueden realizar sin afectar estructuralmente lo ya existente.</p>',
+            'name' => 'Murales',
+            'title' => 'Restauración de murales en Querétaro | Arquitectos Trabajando C+S Estudio',
+            'description' => 'Conservación y restauración de murales en Querétaro, con evaluación de la pintura, el muro y las condiciones del edificio antes de definir los trabajos.',
+            'heading' => 'Restauración de murales en Querétaro',
+            'image' => 'assets/img/restauracion-murales-referencia.svg',
+            'alt' => 'Ilustración de referencia de murales; no representa una obra del estudio',
+            'image_caption' => 'Ilustración de referencia. Imagen definitiva pendiente.',
+            'body' => '<p>La restauración de murales relaciona la conservación de la pintura con el estado del edificio que la contiene. Además de observar la superficie, es necesario evaluar el muro y las condiciones del entorno para comprender el origen de sus alteraciones.</p>
+<h2>La obra y su soporte arquitectónico</h2><p>Fisuras, humedad, desprendimientos y cambios en la superficie pueden requerir valoraciones diferentes. Una revisión inicial permite documentar las áreas afectadas y reconocer cuándo es necesario coordinar la conservación del mural con trabajos en el inmueble.</p>
+<h2>Planeación de la intervención</h2><p>El alcance se define según la técnica, las dimensiones, el acceso y el estado de conservación. La propuesta debe establecer prioridades, etapas de trabajo y medidas de cuidado, considerando el uso del espacio y la protección de la obra durante las actividades.</p>
+<p>Para una consulta de restauración de murales en Querétaro, comparte fotografías generales, detalles de los daños, ubicación y medidas aproximadas. Los antecedentes del inmueble y de intervenciones previas también ayudan a orientar la evaluación.</p>',
         ],
-        'murales-pintura-escultura' => [
-            'legacy' => '14_Construccion-Murales-Pintura-Escultura-Queretaro.php',
-            'path' => '/servicios/murales-pintura-escultura',
-            'category' => 'construccion',
+        'restauracion-retablos' => [
+            'path' => '/servicios/restauracion-retablos',
+            'category' => 'restauracion',
             'number' => '3.4',
-            'name' => 'Murales, Pintura, Escultura',
-            'title' => 'Murales, pintura y escultura en Querétaro | Arquitectos Trabajando C+S Estudio',
-            'description' => 'Asesoría para integrar murales, pintura y escultura en espacios arquitectónicos en Querétaro, considerando materiales, ubicación y conservación.',
-            'heading' => 'Murales, pintura y escultura en Querétaro',
-            'image' => 'assets/img/cat-construccion.jpg',
-            'alt' => 'Estructura metálica de cubierta en obra',
-            'body' => '<p>El arte puede transformar la experiencia de un espacio y expresar su identidad. Te asesoramos para integrar murales, pintura y escultura en proyectos residenciales, comerciales y espacios de uso colectivo, en armonía con su arquitectura.</p>
-        <h2>Integración de arte y arquitectura</h2>
-        <p>La propuesta parte del tema, las dimensiones y el ambiente que se desea crear. Revisamos la ubicación de la pieza, su relación con la luz y los recorridos, así como las características del soporte y su exposición al interior o al exterior.</p>
-        <ul>
-          <li>Definición del concepto y del lugar de intervención.</li>
-          <li>Selección de técnicas, materiales y acabados según el entorno.</li>
-          <li>Planeación de la preparación de superficies y de la instalación.</li>
-          <li>Consideraciones de mantenimiento y cuidado de las piezas.</li>
-        </ul>
-        <h2>Intervenciones en obras existentes</h2>
-        <p>Cuando se busca conservar o restaurar una obra, primero se revisan su estado, materiales y antecedentes para definir el alcance con los especialistas correspondientes. Cada pieza requiere una evaluación particular antes de proponer limpieza, reparación o reintegración.</p>
-        <p>Compártenos fotografías del espacio, medidas aproximadas y referencias de tu idea para conversar sobre las posibilidades del proyecto.</p>',
+            'name' => 'Retablos',
+            'title' => 'Restauración de retablos en Querétaro | Arquitectos Trabajando C+S Estudio',
+            'description' => 'Evaluación y restauración de retablos en Querétaro, atendiendo estructura, elementos escultóricos, pintura y acabados según el estado de cada conjunto.',
+            'heading' => 'Restauración de retablos en Querétaro',
+            'image' => 'assets/img/restauracion-retablos-referencia.svg',
+            'alt' => 'Ilustración de referencia de retablos; no representa una obra del estudio',
+            'image_caption' => 'Ilustración de referencia. Imagen definitiva pendiente.',
+            'body' => '<p>La restauración de retablos requiere comprender el conjunto y la relación entre sus componentes. Estructura, elementos escultóricos, pintura y acabados pueden presentar necesidades distintas, por lo que la intervención debe partir de una evaluación integral.</p>
+<h2>Documentación y diagnóstico del conjunto</h2><p>El registro inicial permite identificar materiales, uniones, piezas y áreas alteradas. También se revisan las condiciones de ubicación y acceso para planear los trabajos de manera compatible con la conservación del retablo y el uso del inmueble.</p>
+<h2>Conservación por etapas</h2><p>La propuesta de restauración establece prioridades y distingue los trabajos sobre el soporte de aquellos dirigidos a las superficies y elementos decorativos. Los tratamientos y sus límites se definen según el diagnóstico, procurando conservar la unidad del conjunto.</p>
+<p>Para consultar sobre restauración de retablos en Querétaro, proporciona fotografías completas y de detalle, ubicación, dimensiones aproximadas y antecedentes conocidos. Antes de programar los trabajos conviene identificar las condiciones de acceso y las autorizaciones que correspondan al inmueble y a la obra.</p>',
         ],
         'presupuesto-de-obra' => [
             'legacy' => '21_Presupuestos-Construccion-Queretaro.php',
@@ -328,10 +327,10 @@ return [
             'alt' => 'Residencia de dos niveles con pórtico y ventanales',
             'services' => ['estaciones-de-servicio', 'diseno-residencial', 'diseno-remodelaciones', 'diseno-comercial', 'centros-escolares'],
         ], [
-            'category' => 'construccion',
-            'title' => 'Construcción y restauración',
+            'category' => 'restauracion',
+            'title' => 'Restauración',
             'image' => 'assets/img/cat-construccion.jpg',
             'alt' => 'Estructura metálica de cubierta en obra',
-            'services' => ['obra-nueva', 'construccion-remodelaciones', 'ampliaciones', 'murales-pintura-escultura'],
+            'services' => ['restauracion-escultura', 'restauracion-pintura', 'restauracion-murales', 'restauracion-retablos'],
         ]],
 ];

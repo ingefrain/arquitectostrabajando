@@ -5,8 +5,8 @@ $routes = [
     '/' => [
         'view' => 'inicio',
         'section' => 'inicio',
-        'title' => 'Arquitectos Trabajando C+S Estudio | Arquitectura, peritajes, valuación y construcción',
-        'description' => 'Empresa de Querétaro dedicada al diseño arquitectónico, restauración y contrucción de obra nueva, remodelaciones, presupuestos, valuación, maquila de planos y asesoría.',
+        'title' => 'Arquitectos Trabajando C+S Estudio | Arquitectura, peritajes, valuación y restauración',
+        'description' => 'Arquitectura, peritajes y valuación en Querétaro. Restauración de escultura, pintura, murales y retablos, proyecto arquitectónico y asesoría.',
     ],
     '/contacto' => [
         'view' => 'contacto',
@@ -17,8 +17,8 @@ $routes = [
     '/servicios' => [
         'view' => 'servicios',
         'section' => 'servicios',
-        'title' => 'Servicios arquitectónicos en Querétaro | Arquitectos Trabajando C+S Estudio',
-        'description' => 'DRO y peritajes, proyecto arquitectónico, construcción, presupuestos, planos y levantamientos topográficos en Querétaro.',
+        'title' => 'Arquitectura y restauración en Querétaro | Arquitectos Trabajando C+S Estudio',
+        'description' => 'Servicios en Querétaro: DRO, peritajes, proyecto arquitectónico y restauración de escultura, pintura, murales y retablos.',
     ],
     '/trabajos' => [
         'view' => 'trabajos',
@@ -34,10 +34,23 @@ $legacy = [
     '/3_Trabajos-Arquitectonicos.html' => '/trabajos',
 ];
 foreach ($catalog['services'] as $slug => $service) {
-    $legacy['/' . $service['legacy']] = $service['path'];
+    if (isset($service['legacy'])) {
+        $legacy['/' . $service['legacy']] = $service['path'];
+    }
     $routes[$service['path']] = [
         'view' => 'servicio', 'section' => 'servicios', 'slug' => $slug,
         'title' => $service['title'], 'description' => $service['description'],
     ];
 }
-return ['routes' => $routes, 'legacy' => $legacy];
+// Retired pages are not redirects or public routes and never enter the sitemap.
+$retired = [
+    '/servicios/obra-nueva',
+    '/servicios/construccion-remodelaciones',
+    '/servicios/ampliaciones',
+    '/servicios/murales-pintura-escultura',
+    '/11_Construccion-Obra-Nueva-Queretaro.php',
+    '/12_Construccion-Remodelaciones-Queretaro.php',
+    '/13_Construccion-Ampliaciones-Queretaro.php',
+    '/14_Construccion-Murales-Pintura-Escultura-Queretaro.php',
+];
+return ['routes' => $routes, 'legacy' => $legacy, 'retired' => $retired];

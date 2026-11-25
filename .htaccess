@@ -9,6 +9,7 @@ RewriteRule ^(?:vistas|datos|xtras)(?:/|$) - [F,END,NC]
 RewriteRule ^(?:config|rutas|includes|servicios-info)\.php(?:/|$) - [F,END,NC]
 
 # Route legacy URLs even while their old files exist during migration.
+RewriteRule ^despliegue(?:/index\.php|/)?$ - [L]
 # Sitemap must be resolved before the generic PHP rule.
 RewriteRule ^sitemap\.(?:xml|php)/?$ sitemap.php [END]
 RewriteRule ^[^/]+\.(?:php|html)/?$ index.php [END]
