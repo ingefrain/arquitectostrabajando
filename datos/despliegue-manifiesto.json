@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-11-25T18:51:44.238201+00:00",
+  "generated_at": "2026-11-25T18:59:03.156501+00:00",
   "environment": "local",
   "files": {
     ".htaccess": 968,
@@ -24,7 +24,7 @@
     "assets/img/trabajo-miranda-3.jpg": 144313,
     "assets/logo-at.png": 82807,
     "assets/logo-og.jpg": 32215,
-    "assets/site.css": 20122,
+    "assets/site.css": 20330,
     "assets/site.js": 3868,
     "config.php": 1298,
     "datos/servicios.php": 28854,
